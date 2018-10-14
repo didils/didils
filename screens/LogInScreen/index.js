@@ -10,7 +10,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fbLogin: () => {
             return dispatch(userActions.facebookLogin());
         }
-    }
-}
+    };
+};
 
 export default connect(null, mapDispatchToProps)(Container);

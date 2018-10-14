@@ -8,11 +8,11 @@ class Container extends Component {
         username: "",
         password: "",
         isSubmitting: false
-    }
+    };
     static propTypes = {
         login: PropTypes.func.isRequired,
         fbLogin: PropTypes.func.isRequired
-    }
+    };
     render() {
         return (
             <LogInScreen
@@ -21,17 +21,14 @@ class Container extends Component {
                 changePassword={this._changePassword}
                 submit={this._submit}
                 fbLogin={this._handleFBLogin}
-            />);
+            />
+        );
     }
-    _changeUsername = (text) => {
-        this.setState({
-            username: text
-        });
+    _changeUsername = text => {
+        this.setState({ username: text });
     };
-    _changePassword = (text) => {
-        this.setState({
-            password: text
-        });
+    _changePassword = text => {
+        this.setState({ password: text });
     };
     _submit = async () => {
         const { username, password, isSubmitting } = this.state;
@@ -43,13 +40,11 @@ class Container extends Component {
                 });
                 const loginResult = await login(username, password);
                 if (!loginResult) {
-                    Alert.alert("Something went wrong, try again");
-                    this.setState({
-                        isSubmitting: false
-                    })
+                    Alert.alert("아이디 또는 비밀번호를 다시 확인해 주세요");
+                    this.setState({ isSubmitting: false });
                 }
             } else {
-                Alert.alert('All fields are required');
+                Alert.alert("아이디와 비밀번호를 모두 입력해 주세요");
             }
         }
     };

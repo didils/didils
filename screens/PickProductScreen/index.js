@@ -1,0 +1,134 @@
+import React, { Component } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image, TextInput, ScrollView } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import ActionSheet from "react-native-actionsheet";
+import FitImage from "react-native-fit-image";
+
+const { width, height } = Dimensions.get("window");
+
+class PickProductScreen extends Component {
+
+    showActionSheet = () => {
+        this.ActionSheet.show()
+    }
+
+    render() {
+        const { navigation } = this.props;
+        const { navigation: { state: { params: { url } } } } = this.props;
+        return (
+            <View style={styles.container}>
+                <View style={styles.svContainer}>
+                    <ScrollView>
+                        <View style={styles.box}>
+                            <Image source={{ uri: url }} style={styles.image} />
+                        </View>
+                        <View style={styles.title}>
+                            <Text style={{ fontSize: 40, fontWeight: "200", marginBottom: 5 }}>지정상품 입력하기</Text>
+                            <Text style={{ fontSize: 17, fontWeight: "100" }}>상표의 '사용범위'를 지정해야 합니다.</Text>
+                            <Text style={{ fontSize: 17, fontWeight: "100" }}>어디에 사용하실건가요?</Text>
+                            <Text style={{ fontSize: 22, fontWeight: "200", marginTop: 20 }}>지정상품 검색 키워드</Text>
+                            <TextInput style={styles.textInput} placeholder="검색 키워드" autoCorrect={false} autoCapitalize={"none"} />
+                        </View>
+                        <ActionSheet
+                            ref={o => this.ActionSheet = o}
+                            title={'어떤 방법으로 지정하겠어요?'}
+                            options={['직접 검색하기', '요청하기', '취소']}
+                            cancelButtonIndex={2}
+                            onPress={(index) => {
+                                if (index == 0) {
+                                    navigation.navigate("Library")
+                                } else if (index == 1) {
+                                    navigation.navigate("Camera")
+                                }
+                            }}
+                        />
+                    </ScrollView>
+                </View>
+                <View style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.button} onPressOut={() => navigation.goBack(null)}>
+                        <Text style={{ fontSize: 18, color: "black", fontWeight: "200" }}>뒤로</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPressOut={this.showActionSheet}>
+                        <Text style={{ fontSize: 18, color: "black", fontWeight: "200" }}>다음</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
+}
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    svContainer: {
+        flex: 8
+    },
+    button: {
+        width: Dimensions.get('window').width / 2 - 20,
+        backgroundColor: "white",
+        marginHorizontal: 2,
+        borderRadius: 4,
+        height: 40,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: StyleSheet.hairlineWidth
+    },
+    btnContainer: {
+        flex: 1,
+        backgroundColor: "white",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    title: {
+        flex: 5,
+        backgroundColor: "white",
+        justifyContent: "flex-start",
+        paddingLeft: 30,
+        paddingTop: 30
+    },
+    box: {
+        flex: 3,
+        backgroundColor: "white",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        paddingTop: 60,
+        paddingLeft: 40
+    },
+    image: {
+        justifyContent: "center",
+        alignItems: "center",
+        width: Dimensions.get('window').width - 200,
+        height: Dimensions.get('window').width - 200,
+        backgroundColor: "#31A5FF",
+        borderRadius: 10
+    },
+    icon: {
+        position: "absolute",
+        bottom: -25,
+        right: -25,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: "white",
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: StyleSheet.hairlineWidth
+    },
+    textInput: {
+        height: 50,
+        borderColor: "#bbb",
+        borderWidth: StyleSheet.hairlineWidth,
+        width: width - 60,
+        borderRadius: 5,
+        marginBottom: 15,
+        marginTop: 15,
+        paddingHorizontal: 10,
+        backgroundColor: "#FAFAFA",
+        fontSize: 17
+    },
+});
+
+export default PickProductScreen;

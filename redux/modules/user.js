@@ -1,4 +1,5 @@
 // Imports
+
 import { API_URL, FB_APP_ID } from "../../constants";
 import { AsyncStorage } from "react-native";
 import { Facebook } from "expo";
@@ -18,18 +19,19 @@ function setLogIn(token) {
     };
 }
 
-function setLogOut() {
-    return { type: LOG_OUT };
-}
-
 function setUser(user) {
     return {
         type: SET_USER,
         user
-    }
+    };
+}
+
+function logOut() {
+    return { type: LOG_OUT };
 }
 
 // API Actions
+
 function login(username, password) {
     return dispatch => {
         return fetch(`${API_URL}/rest-auth/login/`, {
@@ -42,7 +44,9 @@ function login(username, password) {
                 password
             })
         })
-            .then(response => response.json())
+            .then(response => {
+                return response.json();
+            })
             .then(json => {
                 if (json.user && json.token) {
                     dispatch(setLogIn(json.token));
@@ -52,7 +56,7 @@ function login(username, password) {
                     return false;
                 }
             });
-    }
+    };
 }
 
 function facebookLogin() {
@@ -63,7 +67,6 @@ function facebookLogin() {
                 permissions: ["public_profile", "email"]
             }
         );
-        console.log(type, token)
         if (type === "success") {
             return fetch(`${API_URL}/users/login/facebook/`, {
                 method: "POST",
@@ -92,7 +95,7 @@ function facebookLogin() {
 
 const initialState = {
     isLoggedIn: false
-}
+};
 
 // Reducer
 
@@ -110,39 +113,42 @@ function reducer(state = initialState, action) {
 }
 
 // Reducer Functions
+
 function applyLogIn(state, action) {
     const { token } = action;
     return {
         ...state,
         isLoggedIn: true,
         token
-    }
+    };
 }
+
 function applyLogOut(state, action) {
     AsyncStorage.clear();
     return {
         ...state,
         isLoggedIn: false,
         token: ""
-    }
+    };
 }
+
 function applySetUser(state, action) {
     const { user } = action;
     return {
         ...state,
         profile: user
-    }
+    };
 }
 
 // Exports
 
 const actionCreators = {
     login,
-    facebookLogin
+    facebookLogin,
+    logOut
 };
 
 export { actionCreators };
-
 // Default Reducer Export
 
 export default reducer;

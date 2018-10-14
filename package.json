@@ -14,10 +14,14 @@
     "prop-types": "^15.6.2",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-actionsheet": "^2.4.2",
+    "react-native-fade-in-image": "^1.4.1",
+    "react-native-fit-image": "^1.5.4",
     "react-navigation": "^2.18.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "uuid": "^3.3.2"
   }
 }

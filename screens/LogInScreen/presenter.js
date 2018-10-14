@@ -1,7 +1,17 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Dimensions, StatusBar, ActivityIndicator, TouchableOpacity, TextInput } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity,
+    TextInput,
+    StatusBar,
+    ActivityIndicator
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -36,13 +46,17 @@ const LogInScreen = props => (
             />
             <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
                 <View style={styles.button}>
-                    {props.isSubmitting ? <ActivityIndicator size="small" color="white" /> : <Text style={styles.btnText}>Log In</Text>}
+                    {props.isSubmitting ? (
+                        <ActivityIndicator size="small" color="white" />
+                    ) : (
+                            <Text style={styles.btnText}>로그인</Text>
+                        )}
                 </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.fbContainer} onPressOut={props.fbLogin}>
                 <View style={styles.fbView}>
                     <Ionicons name="logo-facebook" size={22} color="#3E99EE" />
-                    <Text style={styles.fbText}>Log in with Facebook</Text>
+                    <Text style={styles.fbText}>페이스북으로 로그인</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -57,7 +71,7 @@ LogInScreen.propTypes = {
     changePassword: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired,
     fbLogin: PropTypes.func.isRequired
-}
+};
 
 const styles = StyleSheet.create({
     container: {
