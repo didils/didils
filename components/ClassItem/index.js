@@ -4,31 +4,21 @@ import { actionCreators as productActions } from "../../redux/modules/product";
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    product: { search, selectedProduct, classifiedProduct }
+    product: { selectedProduct, search }
   } = state;
   return {
-    search,
     selectedProduct,
-    classifiedProduct
+    search
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    searchKeyword: keyword => {
-      return dispatch(productActions.searchByKeyword(keyword));
-    },
-    setSearch: blank => {
-      dispatch(productActions.setSearch(blank));
-    },
-    resetList: () => {
-      dispatch(productActions.resetSelectedProduct());
+    append: product => {
+      dispatch(productActions.addProduct(product));
     },
     classify: search => {
       dispatch(productActions.setClassify(search));
-    },
-    extract: product => {
-      dispatch(productActions.extractProduct(product));
     }
   };
 };

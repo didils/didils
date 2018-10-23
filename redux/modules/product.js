@@ -1,0 +1,621 @@
+// Imports
+import { API_URL } from "../../constants";
+import { actionCreators as userActions } from "./user";
+
+// Actions
+
+const SET_SEARCH = "SET_SEARCH";
+const ADD_PRODUCT = "ADD_PRODUCT";
+const EXTRACT_PRODUCT = "EXTRACT_PRODUCT";
+const RESET_SELECTEDPRODUCT = "RESET_SELECTEDPRODUCT";
+const CLASSIFY_PRODUCT = "CLASSIFY_PRODUCT";
+
+// Action Creators
+
+function extractProduct(product) {
+  return { type: EXTRACT_PRODUCT, product };
+}
+
+function setClassify(search) {
+  return { type: CLASSIFY_PRODUCT, search };
+}
+
+function setSearch(search) {
+  return { type: SET_SEARCH, search };
+}
+
+function addProduct(product) {
+  return { type: ADD_PRODUCT, product };
+}
+
+function resetSelectedProduct() {
+  return { type: RESET_SELECTEDPRODUCT };
+}
+
+// API Actions
+
+function searchByKeyword(keyword) {
+  return (dispatch, getState) => {
+    const {
+      user: { token }
+    } = getState();
+    return fetch(`${API_URL}/products/search/?keyword=${keyword}`, {
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    })
+      .then(response => {
+        if (response.status === 401) {
+          dispatch(userActions.logOut());
+        } else {
+          return response.json();
+        }
+      })
+      .then(json => {
+        dispatch(setSearch(json));
+        dispatch(setClassify(json));
+        return true;
+      })
+      .catch(function() {
+        console.log("Search by keyword Rejected");
+      });
+  };
+}
+
+// Initial State
+
+const initialState = {
+  search: [],
+  selectedProduct: [],
+  classifiedProduct: []
+};
+
+// Reducer
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_SEARCH:
+      return applySetSearch(state, action);
+    case ADD_PRODUCT:
+      return applyAddProduct(state, action);
+    case RESET_SELECTEDPRODUCT:
+      return applyResetSelectedProduct(state);
+    case CLASSIFY_PRODUCT:
+      return applyClassfyProduct(state, action);
+    case EXTRACT_PRODUCT:
+      return applyExtractProduct(state, action);
+    default:
+      return state;
+  }
+}
+
+// Reducer Functions
+
+function applyClassfyProduct(state, action) {
+  const { search } = action;
+  const { selectedProduct } = state;
+  return {
+    ...state,
+    classifiedProduct: [
+      {
+        class: 1,
+        classArray: search.filter(function(el) {
+          if (el.category == "1" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 2,
+        classArray: search.filter(function(el) {
+          if (el.category == "2" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 3,
+        classArray: search.filter(function(el) {
+          if (el.category == "3" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 4,
+        classArray: search.filter(function(el) {
+          if (el.category == "4" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 5,
+        classArray: search.filter(function(el) {
+          if (el.category == "5" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 6,
+        classArray: search.filter(function(el) {
+          if (el.category == "6" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 7,
+        classArray: search.filter(function(el) {
+          if (el.category == "7" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 8,
+        classArray: search.filter(function(el) {
+          if (el.category == "8" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 9,
+        classArray: search.filter(function(el) {
+          if (el.category == "9" && selectedProduct.indexOf(el.product) == -1) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 10,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "10" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 11,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "11" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 12,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "12" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 13,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "13" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 14,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "14" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 15,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "15" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 16,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "16" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 17,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "17" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 18,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "18" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 19,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "19" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 20,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "20" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 21,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "21" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 22,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "22" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 23,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "23" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 24,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "24" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 25,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "25" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 26,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "26" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 27,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "27" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 28,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "28" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 29,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "29" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 30,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "30" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 31,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "31" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 32,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "32" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 33,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "33" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 34,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "34" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 35,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "35" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 36,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "36" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 37,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "37" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 38,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "38" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 39,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "39" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 40,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "40" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 41,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "41" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 42,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "42" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 43,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "43" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 44,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "44" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      },
+      {
+        class: 45,
+        classArray: search.filter(function(el) {
+          if (
+            el.category == "45" &&
+            selectedProduct.indexOf(el.product) == -1
+          ) {
+            return true;
+          }
+        })
+      }
+    ]
+  };
+}
+
+function applySetSearch(state, action) {
+  const { search } = action;
+  return {
+    ...state,
+    search
+  };
+}
+
+function applyAddProduct(state, action) {
+  const { selectedProduct } = state;
+  const { product } = action;
+  return {
+    ...state,
+    selectedProduct: [...selectedProduct, product]
+  };
+}
+
+function applyExtractProduct(state, action) {
+  const { selectedProduct } = state;
+  const { product } = action;
+  return {
+    ...state,
+    selectedProduct: selectedProduct.filter(function(el) {
+      return el != product;
+    })
+  };
+}
+
+function applyResetSelectedProduct(state) {
+  return {
+    ...state,
+    selectedProduct: []
+  };
+}
+
+// Exports
+
+const actionCreators = {
+  searchByKeyword,
+  setSearch,
+  addProduct,
+  resetSelectedProduct,
+  setClassify,
+  extractProduct
+};
+
+export { actionCreators };
+// Default Reducer Export
+
+export default reducer;
