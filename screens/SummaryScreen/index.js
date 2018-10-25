@@ -4,35 +4,32 @@ import { actionCreators as productActions } from "../../redux/modules/product";
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    product: { search, selectedProduct, classifiedProduct, classifiedSelected }
+    product: {
+      classifiedSelected,
+      selectedProduct,
+      selectedArray,
+      classifiedProduct,
+      image
+    },
+    user: { profile }
   } = state;
   return {
-    search,
+    image,
+    profile,
     selectedProduct,
     classifiedProduct,
+    selectedArray,
     classifiedSelected
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    searchKeyword: keyword => {
-      return dispatch(productActions.searchByKeyword(keyword));
-    },
-    setSearch: blank => {
-      dispatch(productActions.setSearch(blank));
-    },
-    resetList: () => {
-      dispatch(productActions.resetSelectedProduct());
-    },
     classify: search => {
-      dispatch(productActions.setClassify(search));
+      dispatch(productActions.setClassifySelected(search));
     },
     extract: product => {
       dispatch(productActions.extractProduct(product));
-    },
-    extractArray: array => {
-      dispatch(productActions.extractProductArray(array));
     }
   };
 };

@@ -1,44 +1,25 @@
-import React, { Component } from "react";
-import { CameraRoll } from "react-native";
-import LibraryScreen from "./presenter";
+import { connect } from "react-redux";
+import Container from "./container";
+import { actionCreators as productActions } from "../../redux/modules/product";
 
-class Container extends Component {
-    state = {
-        photos: null,
-        pickedPhoto: null
-    };
+const mapStateToProps = (state, ownProps) => {
+  const {
+    product: { image }
+  } = state;
+  return {
+    image
+  };
+};
 
-    componentWillMount = async () => {
-        const { edges } = await CameraRoll.getPhotos({
-            first: 2000,
-            groupTypes: "SavedPhotos",
-            assetType: "Photos"
-        });
-        this.setState({
-            photos: edges,
-            pickedPhoto: edges[0]
-        });
-    };
-
-    render() {
-        return (
-            <LibraryScreen
-                {...this.state}
-                pickPhoto={this._pickPhoto}
-                approvePhoto={this._approvePhoto}
-            />
-        );
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setImg: image => {
+      dispatch(productActions.setImage(image));
     }
-    _pickPhoto = photo => {
-        this.setState({
-            pickedPhoto: photo
-        });
-    };
-    _approvePhoto = () => {
-        const { navigation: { navigate } } = this.props;
-        const { pickedPhoto } = this.state;
-        navigate("PickProduct", { url: pickedPhoto.node.image.uri });
-    };
-}
+  };
+};
 
-export default Container;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Container);

@@ -1,6 +1,26 @@
-import React from "react";
-import { View, Text } from "react-native";
+import { connect } from "react-redux";
+import Container from "./container";
+import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as caseActions } from "../../redux/modules/cases";
 
-const ProfileScreen = props => <Text>Profile Screen</Text>
+const mapStateToProps = (state, ownProps) => {
+  const {
+    cases: { feed }
+  } = state;
+  return {
+    feed
+  };
+};
 
-export default ProfileScreen;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getFeed: () => {
+      dispatch(caseActions.getFeed());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Container);

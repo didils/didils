@@ -44,8 +44,6 @@ class Container extends Component {
     if (!searchingBy == "") {
       searchResult = await searchKeyword(searchingBy);
       if (searchResult) {
-        console.log("if state inside");
-        console.log(this.props);
       }
     }
   };

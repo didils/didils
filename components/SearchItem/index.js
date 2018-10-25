@@ -8,6 +8,7 @@ const SearchItem = props => {
       style={styles.badge}
       onPressOut={() => {
         props.append(props.arrayItem.product);
+        props.appendArray(props.arrayItem);
         props.classify(props.search);
       }}
     >

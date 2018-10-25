@@ -5,6 +5,7 @@ import PickPhotoScreen from "../screens/PickPhotoScreen";
 import CameraScreen from "../screens/CameraScreen";
 import LibraryScreen from "../screens/LibraryScreen";
 import PickProductScreen from "../screens/PickProductScreen";
+import SummaryScreen from "../screens/SummaryScreen";
 
 const RootNavigation = createStackNavigator({
   Tabs: {
@@ -21,6 +22,12 @@ const RootNavigation = createStackNavigator({
   },
   PickPhoto: {
     screen: PickPhotoScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Summary: {
+    screen: SummaryScreen,
     navigationOptions: {
       header: null
     }

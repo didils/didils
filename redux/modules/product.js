@@ -9,15 +9,31 @@ const ADD_PRODUCT = "ADD_PRODUCT";
 const EXTRACT_PRODUCT = "EXTRACT_PRODUCT";
 const RESET_SELECTEDPRODUCT = "RESET_SELECTEDPRODUCT";
 const CLASSIFY_PRODUCT = "CLASSIFY_PRODUCT";
+const CLASSIFY_SELECTED = "CLASSIFY_SELECTED";
+const SET_IMAGE = "SET_IMAGE";
+const ADD_PRODUCT_ARRAY = "ADD_PRODUCT_ARRAY";
+const EXTRACT_PRODUCT_ARRAY = "EXTRACT_PRODUCT_ARRAY";
 
 // Action Creators
+
+function setImage(image) {
+  return { type: SET_IMAGE, image };
+}
 
 function extractProduct(product) {
   return { type: EXTRACT_PRODUCT, product };
 }
 
+function extractProductArray(product) {
+  return { type: EXTRACT_PRODUCT_ARRAY, product };
+}
+
 function setClassify(search) {
   return { type: CLASSIFY_PRODUCT, search };
+}
+
+function setClassifySelected(selectedArray) {
+  return { type: CLASSIFY_SELECTED, selectedArray };
 }
 
 function setSearch(search) {
@@ -26,6 +42,10 @@ function setSearch(search) {
 
 function addProduct(product) {
   return { type: ADD_PRODUCT, product };
+}
+
+function addProductArray(productArray) {
+  return { type: ADD_PRODUCT_ARRAY, productArray };
 }
 
 function resetSelectedProduct() {
@@ -67,7 +87,10 @@ function searchByKeyword(keyword) {
 const initialState = {
   search: [],
   selectedProduct: [],
-  classifiedProduct: []
+  selectedArray: [],
+  classifiedProduct: [],
+  image: "",
+  classifiedSelected: []
 };
 
 // Reducer
@@ -78,18 +101,403 @@ function reducer(state = initialState, action) {
       return applySetSearch(state, action);
     case ADD_PRODUCT:
       return applyAddProduct(state, action);
+    case ADD_PRODUCT_ARRAY:
+      return applyAddProductArray(state, action);
     case RESET_SELECTEDPRODUCT:
       return applyResetSelectedProduct(state);
     case CLASSIFY_PRODUCT:
       return applyClassfyProduct(state, action);
+    case CLASSIFY_SELECTED:
+      return applyClassfySelected(state, action);
     case EXTRACT_PRODUCT:
       return applyExtractProduct(state, action);
+    case EXTRACT_PRODUCT_ARRAY:
+      return applyExtractProductArray(state, action);
+    case SET_IMAGE:
+      return applySetImage(state, action);
     default:
       return state;
   }
 }
 
 // Reducer Functions
+
+function applySetImage(state, action) {
+  const { image } = action;
+  return {
+    ...state,
+    image
+  };
+}
+
+function applyClassfySelected(state, action) {
+  const { selectedArray } = action;
+  return {
+    ...state,
+    classifiedSelected: [
+      {
+        class: 1,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "1") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 2,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "2") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 3,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "3") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 4,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "4") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 5,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "5") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 6,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "6") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 7,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "7") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 8,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "8") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 9,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "9") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 10,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "10") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 11,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "11") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 12,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "12") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 13,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "13") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 14,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "14") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 15,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "15") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 16,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "16") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 17,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "17") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 18,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "18") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 19,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "19") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 20,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "20") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 21,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "21") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 22,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "22") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 23,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "23") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 24,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "24") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 25,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "25") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 26,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "26") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 27,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "27") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 28,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "28") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 29,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "29") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 30,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "30") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 31,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "31") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 32,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "32") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 33,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "33") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 34,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "34") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 35,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "35") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 36,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "36") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 37,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "37") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 38,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "38") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 39,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "39") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 40,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "40") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 41,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "41") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 42,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "42") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 43,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "43") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 44,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "44") {
+            return true;
+          }
+        })
+      },
+      {
+        class: 45,
+        classArray: selectedArray.filter(function(el) {
+          if (el.category == "45") {
+            return true;
+          }
+        })
+      }
+    ]
+  };
+}
 
 function applyClassfyProduct(state, action) {
   const { search } = action;
@@ -577,6 +985,26 @@ function applySetSearch(state, action) {
   };
 }
 
+function applyAddProductArray(state, action) {
+  const { selectedArray } = state;
+  const { productArray } = action;
+  return {
+    ...state,
+    selectedArray: [...selectedArray, productArray]
+  };
+}
+
+function applyExtractProductArray(state, action) {
+  const { selectedArray } = state;
+  const { product } = action;
+  return {
+    ...state,
+    selectedArray: selectedArray.filter(function(el) {
+      return el.product != product;
+    })
+  };
+}
+
 function applyAddProduct(state, action) {
   const { selectedProduct } = state;
   const { product } = action;
@@ -600,7 +1028,8 @@ function applyExtractProduct(state, action) {
 function applyResetSelectedProduct(state) {
   return {
     ...state,
-    selectedProduct: []
+    selectedProduct: [],
+    selectedArray: []
   };
 }
 
@@ -612,7 +1041,11 @@ const actionCreators = {
   addProduct,
   resetSelectedProduct,
   setClassify,
-  extractProduct
+  extractProduct,
+  setImage,
+  extractProductArray,
+  addProductArray,
+  setClassifySelected
 };
 
 export { actionCreators };

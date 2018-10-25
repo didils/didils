@@ -3,12 +3,12 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const SelectedItem = props => {
-  console.log(props);
   return (
     <TouchableOpacity
       style={styles.badge}
       onPressOut={() => {
         props.extract(props.productName);
+        props.extractArray(props.productName);
         props.classify(props.search);
       }}
     >

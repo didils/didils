@@ -22,6 +22,7 @@ const ClassItem = props => {
                 arrayItem={items}
                 productList={props.productList}
                 append={props.append}
+                appendArray={props.appendArray}
                 search={props.search}
                 classify={props.classify}
               />

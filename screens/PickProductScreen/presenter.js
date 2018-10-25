@@ -22,7 +22,6 @@ class PickProductScreen extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { navigation } = this.props;
     const {
       navigation: {
@@ -72,6 +71,7 @@ class PickProductScreen extends Component {
                       <SelectedItem
                         key={index}
                         extract={this.props.extract}
+                        extractArray={this.props.extractArray}
                         productName={search}
                         search={this.props.search}
                         classify={this.props.classify}
@@ -98,19 +98,6 @@ class PickProductScreen extends Component {
                 <Image source={{ uri: url }} style={styles.image} />
               </View>
             </View>
-            <ActionSheet
-              ref={o => (this.ActionSheet = o)}
-              title={"어떤 방법으로 지정하겠어요?"}
-              options={["직접 검색하기", "요청하기", "취소"]}
-              cancelButtonIndex={2}
-              onPress={index => {
-                if (index == 0) {
-                  navigation.navigate("Library");
-                } else if (index == 1) {
-                  navigation.navigate("Camera");
-                }
-              }}
-            />
           </ScrollView>
         </View>
         <View style={styles.btnContainer}>
@@ -124,7 +111,7 @@ class PickProductScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPressOut={this.showActionSheet}
+            onPressOut={() => navigation.navigate("Summary")}
           >
             <Text style={{ fontSize: 18, color: "black", fontWeight: "200" }}>
               다음
@@ -138,7 +125,8 @@ class PickProductScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white"
   },
   svContainer: {
     flex: 10

@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     append: product => {
       dispatch(productActions.addProduct(product));
     },
+    appendArray: array => {
+      dispatch(productActions.addProductArray(array));
+    },
     classify: search => {
       dispatch(productActions.setClassify(search));
     }
