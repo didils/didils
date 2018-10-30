@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  StyleSheet
+  StyleSheet,
+  Alert
 } from "react-native";
 import { withNavigation } from "react-navigation";
 import FadeIn from "react-native-fade-in-image";
@@ -24,7 +25,7 @@ const Photo = props => {
           alignItems: "center"
         }}
       >
-        <Text style={styles.title}>{props.trademark_title}</Text>
+        <Text style={styles.title}>{props.caseInfo.trademark_title}</Text>
         <View style={styles.badgeClass}>
           <Text style={{ color: "grey" }}>제03류</Text>
         </View>
@@ -32,7 +33,7 @@ const Photo = props => {
       <View>
         <FadeIn>
           <Image
-            source={{ uri: props.trademark_image }}
+            source={{ uri: props.caseInfo.trademark_image }}
             style={{
               width: width - 131,
               height: width - 140,
@@ -43,7 +44,7 @@ const Photo = props => {
         </FadeIn>
         <View style={styles.badge}>
           <Text style={{ fontSize: 14, fontWeight: "200" }}>
-            {props.progress_status}
+            {props.caseInfo.progress_status}
           </Text>
         </View>
       </View>
@@ -56,7 +57,15 @@ const Photo = props => {
           paddingBottom: 10
         }}
       >
-        <Text style={{ fontSize: 14, fontWeight: "500" }}>상세 보기</Text>
+        <TouchableOpacity
+          onPressOut={() =>
+            props.navigation.navigate("caseDetail", {
+              cases: props.caseInfo
+            })
+          }
+        >
+          <Text style={{ fontSize: 14, fontWeight: "500" }}>상세 보기</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

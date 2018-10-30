@@ -6,6 +6,7 @@ import CameraScreen from "../screens/CameraScreen";
 import LibraryScreen from "../screens/LibraryScreen";
 import PickProductScreen from "../screens/PickProductScreen";
 import SummaryScreen from "../screens/SummaryScreen";
+import CaseDetailScreen from "../screens/CaseDetailScreen";
 
 const RootNavigation = createStackNavigator({
   Tabs: {
@@ -48,6 +49,12 @@ const RootNavigation = createStackNavigator({
     screen: TakePhotoScreen,
     navigationOptions: {
       header: null
+    }
+  },
+  caseDetail: {
+    screen: CaseDetailScreen,
+    navigationOptions: {
+      tabBarLabel: "상세 정보"
     }
   }
 });

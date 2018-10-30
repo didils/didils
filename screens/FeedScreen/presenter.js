@@ -26,7 +26,9 @@ const FeedScreen = props => (
     <ScrollView horizontal={true}>
       <View style={styles.containerTM}>
         {props.feed &&
-          props.feed.map((cases, index) => <Photo {...cases} key={index} />)}
+          props.feed.map((cases, index) => (
+            <Photo caseInfo={cases} key={index} />
+          ))}
       </View>
     </ScrollView>
   </View>
