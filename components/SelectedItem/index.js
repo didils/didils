@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { PURPLE } from "../../constants";
 
 const SelectedItem = props => {
   return (
@@ -10,6 +11,7 @@ const SelectedItem = props => {
         props.extract(props.productName);
         props.extractArray(props.productName);
         props.classify(props.search);
+        props.setClassifySelected();
       }}
     >
       <Ionicons
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#FAFAFA",
     borderRadius: 12.5,
-    backgroundColor: "violet",
+    backgroundColor: PURPLE,
     justifyContent: "center",
     paddingHorizontal: 5,
     flexDirection: "row",

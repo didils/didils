@@ -45,7 +45,7 @@ class Container extends Component {
     console.log(pickedPhoto.node.image.uri);
     this.props.setImg(pickedPhoto.node.image.uri);
     console.log(this.props.image);
-    navigate("PickProduct", { url: pickedPhoto.node.image.uri });
+    navigate("First", { url: pickedPhoto.node.image.uri });
   };
 }
 

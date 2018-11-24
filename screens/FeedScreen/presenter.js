@@ -3,60 +3,104 @@ import PropTypes from "prop-types";
 import {
   View,
   Text,
-  ScrollView,
+  Image,
   StyleSheet,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from "react-native";
 import Photo from "../../components/Photo";
+import { PURPLE } from "../../constants";
 
-const { height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
-const FeedScreen = props => (
-  <View style={styles.container}>
-    <View style={styles.topBtn}>
+const FeedScreen = props => {
+  return (
+    <View style={styles.container}>
+      <View style={{ alignItems: "center", marginBottom: 15 }}>
+        <Image
+          source={require("../../assets/images/icon.png")}
+          style={{ width: 100 }}
+          resizeMode={"contain"}
+        />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.textHighlight}>변리사</Text>
+          <Text style={styles.text}>가 직접 만들고 운영하는</Text>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.text}>대한민국 </Text>
+          <Text style={styles.textHighlight}>최초</Text>
+          <Text style={styles.text}> 상표 관리 어플</Text>
+        </View>
+      </View>
       <TouchableOpacity
-        style={styles.button}
-        onPressOut={() => props.navigation.navigate("PickPhoto")}
+        style={styles.buttonLogin}
+        onPressOut={() => {
+          if (props.isLoggedIn) {
+            props.resetCase();
+            props.navigation.navigate("First");
+          } else {
+            Alert.alert(
+              "상표 출원은",
+              "로그인이 필요합니다.",
+              [
+                {
+                  text: "취소",
+                  style: "cancel"
+                },
+                {
+                  text: "로그인",
+                  onPress: () => {
+                    props.navigation.navigate("LogIn");
+                  }
+                }
+              ],
+              { cancelable: true }
+            );
+          }
+        }}
       >
-        <Text style={styles.text}>상표 출원하기</Text>
+        <Text style={styles.loginText}>상표 출원하기</Text>
       </TouchableOpacity>
     </View>
-
-    <ScrollView horizontal={true}>
-      <View style={styles.containerTM}>
-        {props.feed &&
-          props.feed.map((cases, index) => (
-            <Photo caseInfo={cases} key={index} />
-          ))}
-      </View>
-    </ScrollView>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "100",
-    color: "#31A5FF"
+    color: "black",
+    marginBottom: 10
+  },
+  textHighlight: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: PURPLE,
+    marginBottom: 10
+  },
+  loginText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "white"
   },
   container: {
-    backgroundColor: "#FAFAFA"
+    backgroundColor: "white",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   },
   containerTM: {
-    flex: 1,
     backgroundColor: "#FBFBFB",
-    alignItems: "flex-start",
+    alignItems: "center",
     backgroundColor: "#FAFAFA",
     flexDirection: "row",
-    marginTop: 80,
-    marginLeft: 45,
-    marginRight: 30,
-    height: height - 250
+    marginLeft: 30,
+    marginRight: 30
   },
   topBtn: {
     backgroundColor: "#31A5FF",
-    height: 85,
+    flex: 2,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -66,7 +110,15 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 2,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#FBFBFB",
+    borderColor: "grey",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonLogin: {
+    width: (width * 36) / 100,
+    backgroundColor: PURPLE,
+    height: (width * 14) / 100,
+    borderRadius: (width * 7) / 100,
     justifyContent: "center",
     alignItems: "center"
   }

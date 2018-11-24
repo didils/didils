@@ -1,37 +1,44 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Text, StatusBar, StyleSheet } from "react-native";
+import { View, Text, StatusBar, StyleSheet, Dimensions } from "react-native";
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 import RootNavigation from "../../navigation/RootNavigation";
 
 class AppContainer extends Component {
-    static propTypes = {
-        isLoggedIn: PropTypes.bool.isRequired,
-        initApp: PropTypes.func.isRequired
-    };
-    componentDidMount() {
-        const { isLoggedIn, initApp } = this.props;
-        if (isLoggedIn) {
-            console.log(`AppCotainer/presenter 내부 isLoggedIn: ${isLoggedIn}`)
-            initApp();
-        }
+  static propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    initApp: PropTypes.func.isRequired
+  };
+
+  componentWillMount() {
+    const { isLoggedIn, resetFeed } = this.props;
+    if (!isLoggedIn) {
+      resetFeed();
     }
-    render() {
-        const { isLoggedIn, profile } = this.props;
-        return (
-            <View style={styles.container}>
-                <StatusBar hidden={false} />
-                {isLoggedIn && profile ? <RootNavigation screenProps={{ username: profile.username }} /> : <LoggedOutNavigation />}
-            </View>
-        );
+  }
+
+  componentDidMount() {
+    const { isLoggedIn, initApp } = this.props;
+    if (isLoggedIn) {
+      initApp();
     }
+  }
+  render() {
+    const { isLoggedIn, profile } = this.props;
+    return (
+      <View style={styles.container}>
+        <StatusBar hidden={false} />
+        <RootNavigation />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff"
-    }
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  }
 });
 
 export default AppContainer;

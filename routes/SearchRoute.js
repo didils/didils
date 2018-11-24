@@ -3,15 +3,18 @@ import SearchScreen from "../screens/SearchScreen";
 import sharedRoutes, { sharedOptions } from "./sharedRoutes";
 
 const SearchRoute = createStackNavigator(
-    {
-        Search: {
-            screen: SearchScreen
-        },
-        ...sharedRoutes
+  {
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        header: null
+      }
     },
-    {
-        ...sharedOptions
-    }
+    ...sharedRoutes
+  },
+  {
+    ...sharedOptions
+  }
 );
 
 export default SearchRoute;

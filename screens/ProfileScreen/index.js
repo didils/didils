@@ -7,8 +7,10 @@ const mapStateToProps = (state, ownProps) => {
   const {
     cases: { feed }
   } = state;
+  const { user } = state;
   return {
-    feed
+    feed,
+    isLoggedIn: user.isLoggedIn
   };
 };
 
@@ -16,6 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     userLogOut: () => {
       dispatch(userActions.logOut());
+      dispatch(caseActions.resetFeed());
     }
   };
 };

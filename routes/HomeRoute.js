@@ -8,15 +8,9 @@ const HomeRoute = createStackNavigator(
   {
     Home: {
       screen: FeedScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerTitle: (
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={{ height: 35 }}
-            resizeMode={"contain"}
-          />
-        )
-      })
+      navigationOptions: {
+        header: null
+      }
     },
     ...sharedRoutes
   },

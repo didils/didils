@@ -124,11 +124,11 @@ function applyLogIn(state, action) {
 }
 
 function applyLogOut(state, action) {
-  AsyncStorage.clear();
   return {
     ...state,
     isLoggedIn: false,
-    token: ""
+    token: "",
+    profile: []
   };
 }
 

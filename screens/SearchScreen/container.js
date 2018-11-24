@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import FeedScreen from "./presenter";
+import SearchScreen from "./presenter";
 
 class Container extends Component {
   static propTypes = {
@@ -26,7 +26,9 @@ class Container extends Component {
   };
 
   render() {
-    return <FeedScreen {...this.props} {...this.state} />;
+    console.log("feed");
+    console.log(this.props.feed);
+    return <SearchScreen {...this.props} {...this.state} />;
   }
 }
 

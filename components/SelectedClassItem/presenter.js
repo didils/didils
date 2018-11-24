@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet, Text, Dimensions } from "react-native";
 import SearchItem from "../SearchItem";
+import SelectedItem from "../SelectedItem";
 
 const { width } = Dimensions.get("window");
 
-const ClassItem = props => {
+const SelectedClassItem = props => {
   return (
     <View>
       {props.classArray.length > 0 && (
@@ -15,18 +16,16 @@ const ClassItem = props => {
           </View>
           <View style={styles.productContainer}>
             {props.classArray.map((items, index) => (
-              <SearchItem
+              <SelectedItem
                 key={index}
-                name={items.product}
-                appendProduct={props.appendProduct}
+                productName={items.product}
                 arrayItem={items}
                 productList={props.productList}
-                append={props.append}
-                appendArray={props.appendArray}
                 search={props.search}
                 classify={props.classify}
+                extract={props.extract}
+                extractArray={props.extractArray}
                 setClassifySelected={props.setClassifySelected}
-                selectedArray={props.selectedArray}
               />
             ))}
           </View>
@@ -36,7 +35,7 @@ const ClassItem = props => {
   );
 };
 
-ClassItem.propTypes = {};
+SelectedClassItem.propTypes = {};
 
 const styles = StyleSheet.create({
   container: {
@@ -67,4 +66,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ClassItem;
+export default SelectedClassItem;

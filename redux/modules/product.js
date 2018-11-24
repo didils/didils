@@ -32,8 +32,8 @@ function setClassify(search) {
   return { type: CLASSIFY_PRODUCT, search };
 }
 
-function setClassifySelected(selectedArray) {
-  return { type: CLASSIFY_SELECTED, selectedArray };
+function setClassifySelected() {
+  return { type: CLASSIFY_SELECTED };
 }
 
 function setSearch(search) {
@@ -131,7 +131,7 @@ function applySetImage(state, action) {
 }
 
 function applyClassfySelected(state, action) {
-  const { selectedArray } = action;
+  const { selectedArray } = state;
   return {
     ...state,
     classifiedSelected: [
@@ -1029,7 +1029,8 @@ function applyResetSelectedProduct(state) {
   return {
     ...state,
     selectedProduct: [],
-    selectedArray: []
+    selectedArray: [],
+    classifiedSelected: []
   };
 }
 

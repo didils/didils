@@ -5,7 +5,7 @@ import SearchItem from "../SearchItem";
 
 const { width } = Dimensions.get("window");
 
-const ClassItem = props => {
+const SelectedClassPrice = props => {
   return (
     <View>
       {props.classArray.length > 0 && (
@@ -14,21 +14,7 @@ const ClassItem = props => {
             <Text style={styles.classText}>{`제${props.class}류`}</Text>
           </View>
           <View style={styles.productContainer}>
-            {props.classArray.map((items, index) => (
-              <SearchItem
-                key={index}
-                name={items.product}
-                appendProduct={props.appendProduct}
-                arrayItem={items}
-                productList={props.productList}
-                append={props.append}
-                appendArray={props.appendArray}
-                search={props.search}
-                classify={props.classify}
-                setClassifySelected={props.setClassifySelected}
-                selectedArray={props.selectedArray}
-              />
-            ))}
+            <Text>asd</Text>
           </View>
         </View>
       )}
@@ -36,7 +22,7 @@ const ClassItem = props => {
   );
 };
 
-ClassItem.propTypes = {};
+SelectedClassPrice.propTypes = {};
 
 const styles = StyleSheet.create({
   container: {
@@ -67,4 +53,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ClassItem;
+export default SelectedClassPrice;

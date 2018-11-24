@@ -16,21 +16,30 @@ const ProfileScreen = props => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.item}
-        onPressOut={() =>
-          Alert.alert(
-            "사용자 로그아웃",
-            "로그아웃 하시겠습니까?",
-            [
-              {
-                text: "취소",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-              },
-              { text: "확인", onPress: () => props.userLogOut() }
-            ],
-            { cancelable: true }
-          )
-        }
+        onPressOut={() => {
+          if (props.isLoggedIn) {
+            Alert.alert(
+              "사용자 로그아웃",
+              "로그아웃 하시겠습니까?",
+              [
+                {
+                  text: "취소",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel"
+                },
+                {
+                  text: "확인",
+                  onPress: () => {
+                    props.navigation.navigate("Home");
+                    props.userLogOut();
+                    console.log(props);
+                  }
+                }
+              ],
+              { cancelable: true }
+            );
+          }
+        }}
       >
         <Text style={{ fontSize: 17 }}>로그아웃</Text>
         <Ionicons name={"md-exit"} size={30} />

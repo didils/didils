@@ -15,17 +15,17 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    append: product => {
-      dispatch(productActions.addProduct(product));
-    },
-    appendArray: array => {
-      dispatch(productActions.addProductArray(array));
-    },
     classify: search => {
       dispatch(productActions.setClassify(search));
     },
-    setClassifySelected: () => {
-      dispatch(productActions.setClassifySelected());
+    extract: product => {
+      dispatch(productActions.extractProduct(product));
+    },
+    extractArray: array => {
+      dispatch(productActions.extractProductArray(array));
+    },
+    setClassifySelected: array => {
+      dispatch(productActions.setClassifySelected(array));
     }
   };
 };

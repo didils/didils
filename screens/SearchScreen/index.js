@@ -1,6 +1,29 @@
-import React from "react";
-import { View, Text } from "react-native";
+import { connect } from "react-redux";
+import Container from "./container";
+import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as caseActions } from "../../redux/modules/cases";
 
-const SearchScreen = props => <Text>Search Screen</Text>
+const mapStateToProps = (state, ownProps) => {
+  const {
+    cases: { feed }
+  } = state;
+  const { user } = state;
+  return {
+    isLoggedIn: user.isLoggedIn,
+    profile: user.profile,
+    feed
+  };
+};
 
-export default SearchScreen;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getFeed: () => {
+      dispatch(caseActions.getFeed());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Container);

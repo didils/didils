@@ -201,18 +201,6 @@ const styles = StyleSheet.create({
     width: width - 45,
     paddingHorizontal: 10,
     flexWrap: "wrap"
-  },
-  badge: {
-    height: 25,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#FAFAFA",
-    borderRadius: 12.5,
-    backgroundColor: "violet",
-    justifyContent: "center",
-    paddingHorizontal: 5,
-    flexDirection: "row",
-    marginRight: 5,
-    alignItems: "center"
   }
 });
 

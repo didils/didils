@@ -10,6 +10,7 @@ const SearchItem = props => {
         props.append(props.arrayItem.product);
         props.appendArray(props.arrayItem);
         props.classify(props.search);
+        props.setClassifySelected();
       }}
     >
       <Ionicons

@@ -6,6 +6,7 @@ import SearchRoute from "../routes/SearchRoute";
 import CartScreen from "../screens/CartScreen";
 import ProfileRoute from "../routes/ProfileRoute";
 import { MaterialIcons } from "@expo/vector-icons";
+import { PURPLE } from "../constants";
 
 const TabsNavigation = createBottomTabNavigator(
   {
@@ -15,37 +16,24 @@ const TabsNavigation = createBottomTabNavigator(
         tabBarIcon: ({ focused }) => (
           <MaterialIcons
             name={"home"}
-            size={30}
-            color={focused ? "black" : "#31A5FF"}
+            size={25}
+            color={focused ? PURPLE : "lightgrey"}
           />
-        ),
-        tabBarLabel: "홈"
+        )
       }
     },
     Search: {
       screen: SearchRoute,
       navigationOptions: {
+        header: null,
         tabBarIcon: ({ focused }) => (
           <MaterialIcons
             name={"list"}
-            size={30}
-            color={focused ? "black" : "#31A5FF"}
+            size={25}
+            color={focused ? PURPLE : "lightgrey"}
           />
         ),
         tabBarLabel: "리스트"
-      }
-    },
-    Notifications: {
-      screen: CartScreen,
-      navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <MaterialIcons
-            name={"shopping-cart"}
-            size={30}
-            color={focused ? "black" : "#31A5FF"}
-          />
-        ),
-        tabBarLabel: "장바구니"
       }
     },
     Profile: {
@@ -54,8 +42,8 @@ const TabsNavigation = createBottomTabNavigator(
         tabBarIcon: ({ focused }) => (
           <MaterialIcons
             name={"account-box"}
-            size={30}
-            color={focused ? "black" : "#31A5FF"}
+            size={25}
+            color={focused ? PURPLE : "lightgrey"}
           />
         ),
         tabBarLabel: "계정"
@@ -67,10 +55,11 @@ const TabsNavigation = createBottomTabNavigator(
     tabBarOptions: {
       style: {
         backgroundColor: "#FBFBFB",
-        height: 55
+        height: 50
       },
-      activeTintColor: "black",
-      inactiveTintColor: "#31A5FF"
+      activeTintColor: "BlueGreen",
+      inactiveTintColor: "grey",
+      showLabel: false
     }
   }
 );
