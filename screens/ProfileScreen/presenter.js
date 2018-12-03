@@ -71,7 +71,8 @@ const ProfileScreen = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FAFAFA",
-    alignItems: "center"
+    alignItems: "center",
+    paddingTop: 30
   },
   item: {
     width: width - 20,

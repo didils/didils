@@ -10,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
       search,
       selectedProduct,
       classifiedProduct,
-      classifiedSelected
+      classifiedSelected,
+      activeClass
     }
   } = state;
   return {
@@ -18,7 +19,8 @@ const mapStateToProps = (state, ownProps) => {
     selectedProduct,
     classifiedProduct,
     classifiedSelected,
-    selectedArray
+    selectedArray,
+    activeClass
   };
 };
 
@@ -27,8 +29,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     searchKeyword: keyword => {
       return dispatch(productActions.searchByKeyword(keyword));
     },
+    setActiveClass: () => {
+      dispatch(productActions.setActiveClass());
+    },
     setSearch: blank => {
       dispatch(productActions.setSearch(blank));
+    },
+    setTotalPrice: () => {
+      dispatch(productActions.setTotalPrice());
     },
     resetList: () => {
       dispatch(productActions.resetSelectedProduct());

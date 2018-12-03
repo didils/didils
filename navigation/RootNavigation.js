@@ -12,8 +12,15 @@ import CaseDetailScreen from "../screens/CaseDetailScreen";
 import LogInScreen from "../screens/LogInScreen";
 import FirstScreen from "../screens/FirstScreen";
 import SecondScreen from "../screens/SecondScreen";
+import ThirdScreen from "../screens/ThirdScreen";
 import { PURPLE } from "../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ChatListScreen from "../screens/ChatListScreen";
+import ChatScreen from "../screens/ChatScreen";
+import FileListScreen from "../screens/FileListScreen";
+import FileDetailScreen from "../screens/FileDetailScreen";
+import PickApplicantScreen from "../screens/PickApplicantScreen";
+import AddressScreen from "../screens/AddressScreen";
 
 const RootNavigation = createStackNavigator({
   Tabs: {
@@ -22,17 +29,25 @@ const RootNavigation = createStackNavigator({
       header: null
     }
   },
-  PickProduct: {
-    screen: PickProductScreen,
-    navigationOptions: {
-      header: null
-    }
-  },
-  PickPhoto: {
-    screen: PickPhotoScreen,
-    navigationOptions: {
-      header: null
-    }
+  FileDetail: {
+    screen: FileDetailScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
   },
   Summary: {
     screen: SummaryScreen,
@@ -52,6 +67,26 @@ const RootNavigation = createStackNavigator({
       tabBarLabel: "카메라롤"
     }
   },
+  FileList: {
+    screen: FileListScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
+  },
   TakePhoto: {
     screen: TakePhotoScreen,
     navigationOptions: {
@@ -60,12 +95,43 @@ const RootNavigation = createStackNavigator({
   },
   caseDetail: {
     screen: CaseDetailScreen,
-    navigationOptions: {
-      tabBarLabel: "상세 정보"
-    }
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
   },
   LogIn: {
-    screen: LogInScreen
+    screen: LogInScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
   },
   First: {
     screen: FirstScreen,
@@ -122,6 +188,78 @@ const RootNavigation = createStackNavigator({
         />
       )
     })
+  },
+  Third: {
+    screen: ThirdScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
+  },
+  Address: {
+    screen: AddressScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
+  },
+  PickApplicant: {
+    screen: PickApplicantScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: PURPLE,
+      headerLeft: (
+        <Ionicons
+          name={"ios-arrow-round-back"}
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+          color={PURPLE}
+          size={40}
+          style={{ paddingHorizontal: 15, paddingBottom: 10 }}
+        />
+      )
+    })
+  },
+  ChatList: {
+    screen: ChatListScreen,
+    navigationOptions: {
+      tabBarLabel: "채팅리스트"
+    }
+  },
+  Chat: {
+    screen: ChatScreen,
+    navigationOptions: {
+      tabBarLabel: "채팅"
+    }
   }
 });
 

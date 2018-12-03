@@ -5,7 +5,10 @@ import sharedRoutes, { sharedOptions } from "./sharedRoutes";
 const ProfileRoute = createStackNavigator(
   {
     Profile: {
-      screen: ProfileScreen
+      screen: ProfileScreen,
+      navigationOptions: {
+        header: null
+      }
     },
     ...sharedRoutes
   },

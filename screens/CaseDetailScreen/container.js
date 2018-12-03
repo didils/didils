@@ -4,6 +4,19 @@ import CaseDetailScreen from "./presenter";
 
 class Container extends Component {
   static propTypes = {};
+  componentDidMount() {
+    const {
+      navigation: {
+        state: {
+          params: {
+            cases: { identification_number }
+          }
+        }
+      }
+    } = this.props;
+    console.log(this.props.navigation.state.params.cases.identification_number);
+    this.props.getFile(identification_number);
+  }
   render() {
     const {
       navigation: {
@@ -12,8 +25,7 @@ class Container extends Component {
         }
       }
     } = this.props;
-    console.log(cases);
-    return <CaseDetailScreen cases={cases} />;
+    return <CaseDetailScreen cases={cases} {...this.props} />;
   }
 }
 

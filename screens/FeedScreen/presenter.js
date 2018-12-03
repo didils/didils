@@ -62,6 +62,34 @@ const FeedScreen = props => {
       >
         <Text style={styles.loginText}>상표 출원하기</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonLoginChat}
+        onPressOut={() => {
+          if (props.isLoggedIn) {
+            props.navigation.navigate("ChatList");
+          } else {
+            Alert.alert(
+              "문의는",
+              "로그인이 필요합니다.",
+              [
+                {
+                  text: "취소",
+                  style: "cancel"
+                },
+                {
+                  text: "로그인",
+                  onPress: () => {
+                    props.navigation.navigate("LogIn");
+                  }
+                }
+              ],
+              { cancelable: true }
+            );
+          }
+        }}
+      >
+        <Text>채팅</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -72,6 +100,13 @@ const styles = StyleSheet.create({
     fontWeight: "100",
     color: "black",
     marginBottom: 10
+  },
+  buttonLoginChat: {
+    position: "absolute",
+    bottom: -25,
+    right: -25,
+    width: 60,
+    height: 60
   },
   textHighlight: {
     fontSize: 18,

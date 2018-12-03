@@ -16,6 +16,7 @@ import {
   Button
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { PURPLE } from "../../constants";
 
 const { width, height } = Dimensions.get("window");
 
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   },
   touchable: {
     borderRadius: 5,
-    backgroundColor: "#31A5FF",
+    backgroundColor: PURPLE,
     width: width - 80,
     marginTop: 20
   },

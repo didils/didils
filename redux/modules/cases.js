@@ -11,6 +11,7 @@ const SET_DESIGNATED_ARRAY = "SET_DESIGNATED_ARRAY";
 const SET_PRODUCTS = "SET_PRODUCTS";
 const SET_APPLICANTS_ARRAY = "SET_APPLICANTS_ARRAY";
 const SET_DESCRIPTION = "SET_DESCRIPTION";
+const SET_TRADEMARK_TITLE = "SET_TRADEMARK_TITLE";
 const RESET_CASE = "RESET_CASE";
 
 // Action Creators
@@ -28,7 +29,16 @@ function setDescription(descriptions) {
   };
 }
 
+function setTrademarkTitle(trademark_title) {
+  return {
+    type: SET_TRADEMARK_TITLE,
+    trademark_title
+  };
+}
+
 function setApplicantsArray(applicantsArray) {
+  console.log("setapplicantsArray 함수 내부");
+  console.log(applicantsArray);
   return {
     type: SET_APPLICANTS_ARRAY,
     applicantsArray
@@ -94,20 +104,62 @@ function uploadCase(
   designatedArray,
   products,
   applicantsArray,
-  descriptions
+  descriptions,
+  trademark_title
 ) {
   const data = new FormData();
   data.append("designatedArray", JSON.stringify(designatedArray));
   data.append("products", products);
   data.append("descriptions", descriptions);
   data.append("progress_status", "출원 준비 중");
-  data.append("trademark_title", "상표명 입력 예정");
+  data.append("trademark_title", trademark_title);
+  data.append("identification_number", `${uuidv1()}`);
   data.append("applicantsArray", JSON.stringify(applicantsArray));
   data.append("file", {
     uri: file,
     type: "image/jpeg",
     name: `${uuidv1()}.jpg`
   });
+  return (dispatch, getState) => {
+    const {
+      user: { token }
+    } = getState();
+    return fetch(`${API_URL}/cases/upload/`, {
+      method: "POST",
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "multipart/form-data"
+      },
+      body: data
+    }).then(response => {
+      if (response.status === 401) {
+        dispatch(userActions.logOut());
+      } else if (response.ok) {
+        dispatch(getFeed());
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
+}
+
+function uploadCaseWithoutImage(
+  designatedArray,
+  products,
+  applicantsArray,
+  descriptions,
+  trademark_title
+) {
+  const data = new FormData();
+  data.append("designatedArray", JSON.stringify(designatedArray));
+  data.append("products", products);
+  data.append("descriptions", descriptions);
+  data.append("progress_status", "출원 준비 중");
+  data.append("trademark_title", trademark_title);
+  data.append("identification_number", `${uuidv1()}`);
+  data.append("applicantsArray", JSON.stringify(applicantsArray));
+
   return (dispatch, getState) => {
     const {
       user: { token }
@@ -156,6 +208,8 @@ function reducer(state = initialState, action) {
       return applySetDescription(state, action);
     case RESET_CASE:
       return applyResetCase(state, action);
+    case SET_TRADEMARK_TITLE:
+      return applySetTrademarkTitle(state, action);
     default:
       return state;
   }
@@ -164,6 +218,14 @@ applySetDescription;
 
 // Reducer Functions
 
+function applySetTrademarkTitle(state, action) {
+  const { trademark_title } = action;
+  return {
+    ...state,
+    trademark_title
+  };
+}
+
 function applyResetCase(state, action) {
   return {
     ...state,
@@ -171,7 +233,8 @@ function applyResetCase(state, action) {
     products: "",
     applicantsArray: [],
     descriptions: "",
-    isProductsSelected: false
+    isProductsSelected: false,
+    trademark_title: ""
   };
 }
 
@@ -228,10 +291,12 @@ const actionCreators = {
   resetFeed,
   setDesignatedArray,
   uploadCase,
+  uploadCaseWithoutImage,
   setProduct,
   setApplicantsArray,
   setDescription,
-  resetCase
+  resetCase,
+  setTrademarkTitle
 };
 
 export { actionCreators };

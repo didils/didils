@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import user from "./modules/user";
 import cases from "./modules/cases";
+import caseFiles from "./modules/caseFiles";
 import product from "./modules/product";
 
 const middlewares = [thunk];
@@ -16,7 +17,8 @@ const persistConfig = {
 const reducer = persistCombineReducers(persistConfig, {
   user,
   cases,
-  product
+  product,
+  caseFiles
 });
 
 const configureStore = () => {

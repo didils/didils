@@ -19,12 +19,17 @@ class Container extends Component {
     return (
       <FirstScreen
         submitCase={this._submitCase}
+        changeFormat={this._changeFormat}
         {...this.props}
         {...this.state}
+        submitCaseWithoutImage={this._submitCaseWithoutImage}
       />
     );
   }
-  _submitCase = async () => {
+  _changeFormat = priceToChange => {
+    return priceToChange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+  _submitCase = async url => {
     const {
       profile,
       uploadCase,
@@ -33,11 +38,7 @@ class Container extends Component {
       products,
       applicantsArray,
       descriptions,
-      navigation: {
-        state: {
-          params: { url }
-        }
-      }
+      trademark_title
     } = this.props;
     this.setState({
       isSubmitting: true
@@ -47,10 +48,36 @@ class Container extends Component {
       designatedArray,
       products,
       applicantsArray,
-      descriptions
+      descriptions,
+      trademark_title
     );
-    console.log("uploadresult");
-    console.log(uploadResult);
+    if (uploadResult) {
+      navigation.goBack(null);
+    }
+  };
+
+  _submitCaseWithoutImage = async () => {
+    const {
+      profile,
+      uploadCase,
+      uploadCaseWithoutImage,
+      navigation,
+      designatedArray,
+      products,
+      applicantsArray,
+      descriptions,
+      trademark_title
+    } = this.props;
+    this.setState({
+      isSubmitting: true
+    });
+    const uploadResult = await uploadCaseWithoutImage(
+      designatedArray,
+      products,
+      applicantsArray,
+      descriptions,
+      trademark_title
+    );
     if (uploadResult) {
       navigation.goBack(null);
     }

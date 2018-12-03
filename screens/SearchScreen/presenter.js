@@ -23,7 +23,7 @@ const SearchScreen = props => {
       <View>
         {props.isLoggedIn ? (
           <View>
-            {props.feed.length > 0 ? (
+            {props.feed ? (
               <ScrollView>
                 <View style={styles.containerTM}>
                   {props.feed &&

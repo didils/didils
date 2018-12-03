@@ -2,20 +2,20 @@ import { connect } from "react-redux";
 import Container from "./container";
 import { actionCreators as userActions } from "../../redux/modules/user";
 import { actionCreators as caseActions } from "../../redux/modules/cases";
-
-const mapStateToProps = (state, ownProps) => {
-    const { cases: { feed } } = state;
-    return {
-        feed
-    };
-};
+import { actionCreators as caseFileActions } from "../../redux/modules/caseFiles";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        getFeed: () => {
-            dispatch(caseActions.getFeed());
-        }
-    };
+  return {
+    getFeed: () => {
+      dispatch(caseActions.getFeed());
+    },
+    getFile: identification_number => {
+      dispatch(caseFileActions.getFile(identification_number));
+    }
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Container);

@@ -46,7 +46,7 @@ const TabsNavigation = createBottomTabNavigator(
             color={focused ? PURPLE : "lightgrey"}
           />
         ),
-        tabBarLabel: "계정"
+        header: null
       }
     }
   },

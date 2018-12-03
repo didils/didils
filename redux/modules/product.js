@@ -13,11 +13,21 @@ const CLASSIFY_SELECTED = "CLASSIFY_SELECTED";
 const SET_IMAGE = "SET_IMAGE";
 const ADD_PRODUCT_ARRAY = "ADD_PRODUCT_ARRAY";
 const EXTRACT_PRODUCT_ARRAY = "EXTRACT_PRODUCT_ARRAY";
+const SET_TOTAL_PRICE = "SET_TOTAL_PRICE";
+const SET_ACTIVE_CLASS = "SET_ACTIVE_CLASS";
 
 // Action Creators
 
+function setActiveClass() {
+  return { type: SET_ACTIVE_CLASS };
+}
+
 function setImage(image) {
   return { type: SET_IMAGE, image };
+}
+
+function setTotalPrice(image) {
+  return { type: SET_TOTAL_PRICE };
 }
 
 function extractProduct(product) {
@@ -115,6 +125,10 @@ function reducer(state = initialState, action) {
       return applyExtractProductArray(state, action);
     case SET_IMAGE:
       return applySetImage(state, action);
+    case SET_TOTAL_PRICE:
+      return applySetTotalPrice(state, action);
+    case SET_ACTIVE_CLASS:
+      return applySetActiveClass(state, action);
     default:
       return state;
   }
@@ -127,6 +141,36 @@ function applySetImage(state, action) {
   return {
     ...state,
     image
+  };
+}
+
+function applySetTotalPrice(state, action) {
+  const { classifiedSelected, activeClass } = state;
+
+  setAdditionalPrice = () => {
+    additionalPrice = 0;
+    activeClass.forEach(element => {
+      if (element.classArray.length > 20) {
+        additionalPrice += (element.classArray.length - 20) * 1000;
+      } else {
+        additionalPrice += 0;
+      }
+    });
+  };
+  setAdditionalPrice();
+
+  setTotalPrice = () => {
+    if (activeClass.length == 1) {
+      totalPrices = 150000 + 56000;
+    } else {
+      totalPrices = 206000 + (activeClass.length - 1) * 156000;
+    }
+  };
+
+  setTotalPrice();
+  return {
+    ...state,
+    totalPrice: totalPrices + additionalPrice
   };
 }
 
@@ -496,6 +540,17 @@ function applyClassfySelected(state, action) {
         })
       }
     ]
+  };
+}
+
+function applySetActiveClass(state, action) {
+  const { classifiedSelected } = state;
+  console.log("setActiveClass");
+  return {
+    ...state,
+    activeClass: classifiedSelected.filter(function(el) {
+      return el.classArray.length > 0;
+    })
   };
 }
 
@@ -1046,7 +1101,9 @@ const actionCreators = {
   setImage,
   extractProductArray,
   addProductArray,
-  setClassifySelected
+  setClassifySelected,
+  setTotalPrice,
+  setActiveClass
 };
 
 export { actionCreators };

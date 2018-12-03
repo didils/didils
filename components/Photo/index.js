@@ -41,7 +41,7 @@ const Photo = props => {
           borderColor: "lightgrey"
         }}
       >
-        <FadeIn>
+        {props.caseInfo.file ? (
           <Image
             source={{ uri: props.caseInfo.file }}
             style={{
@@ -51,7 +51,17 @@ const Photo = props => {
               resizeMode: "contain"
             }}
           />
-        </FadeIn>
+        ) : (
+          <Image
+            source={require("../../assets/images/photoPlaceholder.png")}
+            style={{
+              width: width * 0.8,
+              height: width * 0.899,
+              marginHorizontal: 10,
+              resizeMode: "contain"
+            }}
+          />
+        )}
       </View>
       <View
         style={{

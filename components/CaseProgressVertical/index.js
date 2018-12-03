@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { withNavigation } from "react-navigation";
 import FadeIn from "react-native-fade-in-image";
+import { PURPLE } from "../../constants";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -18,7 +19,7 @@ const CaseProgressVertical = props => {
     <View style={styles.container}>
       {props.caseInfo.progress_status == "결제 대기 중" ? (
         <EventItem
-          bgColor={"#31A5FF"}
+          bgColor={PURPLE}
           eventName={"접수"}
           date={props.caseInfo.request_date}
         />
@@ -31,7 +32,7 @@ const CaseProgressVertical = props => {
       )}
       {props.caseInfo.progress_status == "출원 준비 중" ? (
         <EventItem
-          bgColor={"#31A5FF"}
+          bgColor={PURPLE}
           eventName={"결제완료"}
           date={props.caseInfo.payment_date}
         />
@@ -44,7 +45,7 @@ const CaseProgressVertical = props => {
       )}
       {props.caseInfo.progress_status == "심사 중" ? (
         <EventItem
-          bgColor={"#31A5FF"}
+          bgColor={PURPLE}
           eventName={"출원"}
           date={props.caseInfo.filed_date}
         />
@@ -108,8 +109,8 @@ const EventItem = props => {
         </Text>
         <Text
           style={{
-            fontSize: 15,
-            color: "black",
+            fontSize: 12,
+            color: "grey",
             fontWeight: "100"
           }}
         >
@@ -168,8 +169,8 @@ const EventItemBottom = props => {
         </Text>
         <Text
           style={{
-            fontSize: 15,
-            color: "black",
+            fontSize: 12,
+            color: "grey",
             fontWeight: "100"
           }}
         >
