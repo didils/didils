@@ -12,6 +12,7 @@ import { PURPLE } from "../../constants";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import ApplicantItem from "../../components/ApplicantItem";
+import { Divider } from "react-native-elements";
 
 const { width, height } = Dimensions.get("window");
 
@@ -149,52 +150,7 @@ class PickApplicantScreen extends Component {
                           }}
                         >
                           <Text style={{ color: PURPLE, fontSize: 13 }}>
-                            추가
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                      <View style={{ alignItems: "center" }}>
-                        {this.props.applicantsArray.map((applicant, index) => (
-                          <ApplicantItem
-                            applicant={applicant}
-                            key={index}
-                            number={index}
-                          />
-                        ))}
-                      </View>
-                      <TouchableOpacity
-                        onPressOut={() => {
-                          Alert.alert(
-                            "신청인 정보 입력 완료?",
-                            "확인",
-                            [
-                              {
-                                text: "취소",
-                                style: "cancel"
-                              },
-                              {
-                                text: "확인",
-                                onPress: () => {
-                                  this.props.navigation.goBack(null);
-                                }
-                              }
-                            ],
-                            { cancelable: true }
-                          );
-                        }}
-                      >
-                        <View
-                          style={{
-                            marginRight: 12,
-                            marginBottom: 5,
-                            borderColor: PURPLE,
-                            borderWidth: StyleSheet.hairlineWidth,
-                            borderRadius: 3,
-                            padding: 3
-                          }}
-                        >
-                          <Text style={{ color: PURPLE, fontSize: 13 }}>
-                            지정 완료
+                            목록에 추가
                           </Text>
                         </View>
                       </TouchableOpacity>
@@ -223,6 +179,86 @@ class PickApplicantScreen extends Component {
                     </View>
                   </TouchableOpacity>
                 )}
+                <Divider />
+                <View
+                  style={{
+                    alignItems: "flex-start",
+                    paddingTop: 30,
+                    width
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "600",
+                      color: PURPLE,
+                      marginBottom: 15,
+                      paddingLeft: 15
+                    }}
+                  >
+                    선택된 출원인(신청인) 목록 :{" "}
+                    {this.props.applicantsArray.length}명 선택됨
+                  </Text>
+                  <View style={{ alignItems: "center", width }}>
+                    {this.props.applicantsArray.length > 0 ? (
+                      <View style={{ alignItems: "center" }}>
+                        {this.props.applicantsArray.map((applicant, index) => (
+                          <ApplicantItem
+                            applicant={applicant}
+                            key={index}
+                            number={index}
+                            extractApplicant={this.props.extractApplicant}
+                          />
+                        ))}
+                        <View style={{ alignItems: "flex-end", width }}>
+                          <TouchableOpacity
+                            style={{
+                              paddingVertical: 7,
+                              borderRadius: 3,
+                              backgroundColor: PURPLE,
+                              paddingHorizontal: 10,
+                              marginRight: 15,
+                              marginVertical: 15
+                            }}
+                            onPressOut={() => {
+                              Alert.alert(
+                                "신청인 정보 입력 완료?",
+                                "확인",
+                                [
+                                  {
+                                    text: "취소",
+                                    style: "cancel"
+                                  },
+                                  {
+                                    text: "확인",
+                                    onPress: () => {
+                                      this.props.navigation.goBack(null);
+                                    }
+                                  }
+                                ],
+                                { cancelable: true }
+                              );
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 17,
+                                fontWeight: "600",
+                                color: "white"
+                              }}
+                            >
+                              지정 완료
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    ) : (
+                      <Text style={{ paddingLeft: 10 }}>
+                        현재 선택된 신청인이 없습니다.
+                      </Text>
+                    )}
+                  </View>
+                </View>
               </View>
             </View>
           </ScrollView>

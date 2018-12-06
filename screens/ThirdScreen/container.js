@@ -4,6 +4,9 @@ import ThirdScreen from "./presenter";
 
 class Container extends Component {
   static propTypes = {};
+  state = {
+    isSubmitting: false
+  };
 
   render() {
     return (
@@ -13,16 +16,23 @@ class Container extends Component {
         {...this.props}
         {...this.state}
         submitCaseWithoutImage={this._submitCaseWithoutImage}
+        submitCaseWithoutTitle={this._submitCaseWithoutTitle}
+        changeToSubmit={this._changeToSubmit}
       />
     );
   }
   _changeFormat = priceToChange => {
     return priceToChange.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
+  _changeToSubmit = () => {
+    this.setState({
+      ...this.state,
+      isSubmitting: true
+    });
+  };
 
   _submitCase = async url => {
     const {
-      profile,
       uploadCase,
       navigation,
       designatedArray,
@@ -43,14 +53,12 @@ class Container extends Component {
       trademark_title
     );
     if (uploadResult) {
-      navigation.goBack(null);
+      navigation.navigate("Tabs");
     }
   };
 
   _submitCaseWithoutImage = async () => {
     const {
-      profile,
-      uploadCase,
       uploadCaseWithoutImage,
       navigation,
       designatedArray,
@@ -70,7 +78,31 @@ class Container extends Component {
       trademark_title
     );
     if (uploadResult) {
-      navigation.goBack(null);
+      navigation.navigate("Tabs");
+    }
+  };
+
+  _submitCaseWithoutTitle = async url => {
+    const {
+      uploadCaseWithoutTitle,
+      navigation,
+      designatedArray,
+      products,
+      applicantsArray,
+      descriptions
+    } = this.props;
+    this.setState({
+      isSubmitting: true
+    });
+    const uploadResult = await uploadCaseWithoutTitle(
+      url,
+      designatedArray,
+      products,
+      applicantsArray,
+      descriptions
+    );
+    if (uploadResult) {
+      navigation.navigate("Tabs");
     }
   };
 }

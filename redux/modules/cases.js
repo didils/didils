@@ -13,6 +13,7 @@ const SET_APPLICANTS_ARRAY = "SET_APPLICANTS_ARRAY";
 const SET_DESCRIPTION = "SET_DESCRIPTION";
 const SET_TRADEMARK_TITLE = "SET_TRADEMARK_TITLE";
 const RESET_CASE = "RESET_CASE";
+const EXTRACT_APPLICANT = "EXTRACT_APPLICANT";
 
 // Action Creators
 
@@ -20,6 +21,10 @@ function resetCase() {
   return {
     type: RESET_CASE
   };
+}
+
+function extractApplicant(applicant) {
+  return { type: EXTRACT_APPLICANT, applicant };
 }
 
 function setDescription(descriptions) {
@@ -144,6 +149,50 @@ function uploadCase(
   };
 }
 
+function uploadCaseWithoutTitle(
+  file,
+  designatedArray,
+  products,
+  applicantsArray,
+  descriptions
+) {
+  const data = new FormData();
+  data.append("designatedArray", JSON.stringify(designatedArray));
+  data.append("products", products);
+  data.append("descriptions", descriptions);
+  data.append("progress_status", "출원 준비 중");
+  data.append("trademark_title", "명칭 입력 대기 중");
+  data.append("identification_number", `${uuidv1()}`);
+  data.append("applicantsArray", JSON.stringify(applicantsArray));
+  data.append("file", {
+    uri: file,
+    type: "image/jpeg",
+    name: `${uuidv1()}.jpg`
+  });
+  return (dispatch, getState) => {
+    const {
+      user: { token }
+    } = getState();
+    return fetch(`${API_URL}/cases/upload/`, {
+      method: "POST",
+      headers: {
+        Authorization: `JWT ${token}`,
+        "Content-Type": "multipart/form-data"
+      },
+      body: data
+    }).then(response => {
+      if (response.status === 401) {
+        dispatch(userActions.logOut());
+      } else if (response.ok) {
+        dispatch(getFeed());
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
+}
+
 function uploadCaseWithoutImage(
   designatedArray,
   products,
@@ -164,7 +213,7 @@ function uploadCaseWithoutImage(
     const {
       user: { token }
     } = getState();
-    return fetch(`${API_URL}/cases/upload/`, {
+    return fetch(`${API_URL}/cases/uploads/`, {
       method: "POST",
       headers: {
         Authorization: `JWT ${token}`,
@@ -210,6 +259,8 @@ function reducer(state = initialState, action) {
       return applyResetCase(state, action);
     case SET_TRADEMARK_TITLE:
       return applySetTrademarkTitle(state, action);
+    case EXTRACT_APPLICANT:
+      return applyExtractApplicant(state, action);
     default:
       return state;
   }
@@ -217,6 +268,17 @@ function reducer(state = initialState, action) {
 applySetDescription;
 
 // Reducer Functions
+
+function applyExtractApplicant(state, action) {
+  const { applicantsArray } = state;
+  const { applicant } = action;
+  return {
+    ...state,
+    applicantsArray: applicantsArray.filter(function(el) {
+      return el.representName != applicant;
+    })
+  };
+}
 
 function applySetTrademarkTitle(state, action) {
   const { trademark_title } = action;
@@ -296,7 +358,9 @@ const actionCreators = {
   setApplicantsArray,
   setDescription,
   resetCase,
-  setTrademarkTitle
+  setTrademarkTitle,
+  extractApplicant,
+  uploadCaseWithoutTitle
 };
 
 export { actionCreators };

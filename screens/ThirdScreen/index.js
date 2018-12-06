@@ -69,6 +69,23 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         )
       );
     },
+    uploadCaseWithoutTitle: (
+      file,
+      designatedArray,
+      products,
+      applicantsArray,
+      descriptions
+    ) => {
+      return dispatch(
+        caseActions.uploadCaseWithoutTitle(
+          file,
+          designatedArray,
+          products,
+          applicantsArray,
+          descriptions
+        )
+      );
+    },
     uploadCaseWithoutImage: (
       designatedArray,
       products,

@@ -44,6 +44,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     resetCase: () => {
       dispatch(caseActions.resetCase());
     },
+    extractApplicant: applicant => {
+      dispatch(caseActions.extractApplicant(applicant));
+    },
     setApplicantsArray: applicantsArray => {
       dispatch(caseActions.setApplicantsArray(applicantsArray));
     },

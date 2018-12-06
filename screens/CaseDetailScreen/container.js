@@ -14,7 +14,6 @@ class Container extends Component {
         }
       }
     } = this.props;
-    console.log(this.props.navigation.state.params.cases.identification_number);
     this.props.getFile(identification_number);
   }
   render() {

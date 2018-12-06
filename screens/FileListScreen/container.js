@@ -5,16 +5,16 @@ import FileListScreen from "./presenter";
 class Container extends Component {
   static propTypes = {};
   render() {
-    console.log(this.props);
-    console.log("props");
     const {
       navigation: {
         state: {
-          params: { cases }
+          params: { cases, case_title }
         }
       }
     } = this.props;
-    return <FileListScreen cases={cases} {...this.props} />;
+    return (
+      <FileListScreen cases={cases} {...this.props} case_title={case_title} />
+    );
   }
 }
 

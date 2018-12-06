@@ -3,10 +3,8 @@ import { Alert } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import TakePhotoScreen from "../screens/TakePhotoScreen";
 import TabsNavigation from "./TabsNavigation";
-import PickPhotoScreen from "../screens/PickPhotoScreen";
 import CameraScreen from "../screens/CameraScreen";
 import LibraryScreen from "../screens/LibraryScreen";
-import PickProductScreen from "../screens/PickProductScreen";
 import SummaryScreen from "../screens/SummaryScreen";
 import CaseDetailScreen from "../screens/CaseDetailScreen";
 import LogInScreen from "../screens/LogInScreen";
@@ -33,7 +31,7 @@ const RootNavigation = createStackNavigator({
     screen: FileDetailScreen,
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "white"
+        backgroundColor: PURPLE
       },
       headerTintColor: PURPLE,
       headerLeft: (

@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    paddingBottom: 50
   },
   containerTM: {
     backgroundColor: "white",

@@ -7,10 +7,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  Alert,
-  TextInput,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from "react-native";
+import FadeIn from "react-native-fade-in-image";
 import { PURPLE } from "../../constants";
 
 import SelectedClassItemFinal from "../../components/SelectedClassItemFinal";
@@ -28,22 +28,95 @@ class ThirdScreen extends Component {
               <Text style={styles.text}>신청 내용 확인하기</Text>
             </View>
             <View style={styles.lower}>
-              <Text style={{ marginVertical: 7, paddingLeft: 5 }}>
-                지정된 출원인
+              <Text style={styles.title}>지정된 상표</Text>
+              <View style={{ alignItems: "center" }}>
+                {navigation.state.params.url ? (
+                  <Image
+                    source={{ uri: navigation.state.params.url }}
+                    style={styles.Image}
+                  />
+                ) : (
+                  <Image
+                    source={require("../../assets/images/photoPlaceholder.png")}
+                    style={styles.Image}
+                  />
+                )}
+              </View>
+              <Text style={styles.title}>
+                지정된 출원인: 총 {this.props.applicantsArray.length}명
               </Text>
               {this.props.applicantsArray.map((applicant, index) => (
-                <Text key={index}>{applicant.representName}</Text>
-              ))}
-              <Text style={{ marginVertical: 7, paddingLeft: 5 }}>
-                선택된 지정상품
-              </Text>
-              {this.props.activeClass.map((search, index) => (
-                <SelectedClassItemFinal
+                <Text
                   key={index}
-                  class={search.class}
-                  classArray={search.classArray}
-                />
+                  style={{ fontSize: 16, paddingLeft: 20, marginBottom: 10 }}
+                >
+                  {applicant.representName}
+                </Text>
               ))}
+              <Text style={styles.title}>지정된 상품</Text>
+              <View style={{ alignItems: "center" }}>
+                {this.props.activeClass.map((search, index) => (
+                  <SelectedClassItemFinal
+                    key={index}
+                    class={search.class}
+                    classArray={search.classArray}
+                  />
+                ))}
+              </View>
+              <View style={{ alignItems: "flex-end", width }}>
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 9,
+                    borderRadius: 3,
+                    backgroundColor: PURPLE,
+                    paddingHorizontal: 13,
+                    marginRight: 15,
+                    marginTop: 15,
+                    marginBottom: 30,
+                    width: 70,
+                    alignItems: "center"
+                  }}
+                  onPressOut={() => {
+                    if (
+                      navigation.state.params.url &&
+                      this.props.trademark_title
+                    ) {
+                      this.props.submitCase(navigation.state.params.url);
+                      this.props.changeToSubmit();
+                    } else if (
+                      !navigation.state.params.url &&
+                      this.props.trademark_title
+                    ) {
+                      this.props.submitCaseWithoutImage();
+                      this.props.changeToSubmit();
+                    } else if (
+                      navigation.state.params.url &&
+                      !this.props.trademark_title
+                    ) {
+                      this.props.submitCaseWithoutTitle(
+                        navigation.state.params.url
+                      );
+                      this.props.changeToSubmit();
+                    } else {
+                      alert("에러: 죄송합니다. 처음부터 다시 신청해 주세요.");
+                    }
+                  }}
+                >
+                  {this.props.isSubmitting ? (
+                    <ActivityIndicator size="small" color="white" />
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 17,
+                        fontWeight: "600",
+                        color: "white"
+                      }}
+                    >
+                      결제
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </View>
@@ -57,28 +130,14 @@ class ThirdScreen extends Component {
             paddingHorizontal: 10
           }}
         >
-          <Text>예상 가격</Text>
-          <TouchableOpacity
-            onPressOut={() => {
-              if (!this.props.products) {
-                alert("지정상품을 지정해 주세요!");
-              } else if (navigation.state.params) {
-                this.props.submitCase(navigation.state.params.url);
-              } else if (this.props.trademark_title) {
-                this.props.submitCaseWithoutImage();
-              } else {
-                alert("상표명을 입력하거나 이미지를 올려주세요");
-              }
-            }}
-          >
-            {this.props.isProductsSelected ? (
-              <Text style={styles.price}>
-                {this.props.changeFormat(this.props.totalPrice)} 원
-              </Text>
-            ) : (
-              <Text style={styles.price}>0 원</Text>
-            )}
-          </TouchableOpacity>
+          <Text style={styles.price}>총 결제 금액</Text>
+          {this.props.isProductsSelected ? (
+            <Text style={styles.price}>
+              {this.props.changeFormat(this.props.totalPrice)} 원
+            </Text>
+          ) : (
+            <Text style={styles.price}>0 원</Text>
+          )}
         </View>
       </View>
     );
@@ -96,13 +155,21 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginVertical: 3
   },
+  title: {
+    fontSize: 19,
+    fontWeight: "600",
+    marginVertical: 7,
+    paddingLeft: 15,
+    marginBottom: 10,
+    marginTop: 20
+  },
   price: {
     color: "white",
     fontWeight: "600",
     fontSize: 20,
     marginRight: 5
   },
-  Image: { height: 70, width: 70, borderRadius: 3, margin: 5 },
+  Image: { height: width / 3, width: width / 3, borderRadius: 3, margin: 5 },
   upper: {
     flex: 1,
     backgroundColor: "white",
@@ -128,6 +195,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1
+  },
+  image: {
+    width: width / 2,
+    height: width / 2,
+    marginHorizontal: 10,
+    resizeMode: "cover",
+    borderRadius: 3
   },
   textInput: {
     height: 35,

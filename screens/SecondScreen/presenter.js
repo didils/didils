@@ -46,20 +46,15 @@ class SecondScreen extends Component {
         </View>
         <View style={styles.lower}>
           <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-            {this.props.search.length === 0 &&
-            this.props.searchingBy.length > 1 ? (
-              <Text style={styles.notFound}>
-                No products found for {this.props.searchingBy}
-              </Text>
-            ) : (
-              this.props.classifiedProduct.map((search, index) => (
-                <ClassItem
-                  key={index}
-                  class={search.class}
-                  classArray={search.classArray}
-                />
-              ))
-            )}
+            {this.props.search.length === 0 && this.props.searchingBy.length > 1
+              ? null
+              : this.props.classifiedProduct.map((search, index) => (
+                  <ClassItem
+                    key={index}
+                    class={search.class}
+                    classArray={search.classArray}
+                  />
+                ))}
             <View style={{ alignItems: "center", margin: 40 }}>
               <Text style={styles.examText}>검색 키워드 예시</Text>
               <Text style={styles.examText}>1. 카페</Text>
@@ -123,7 +118,7 @@ class SecondScreen extends Component {
                       borderColor: PURPLE,
                       borderWidth: StyleSheet.hairlineWidth,
                       borderRadius: 3,
-                      padding: 3
+                      padding: 4
                     }}
                   >
                     <Text style={{ color: PURPLE, fontSize: 13 }}>

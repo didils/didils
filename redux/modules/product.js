@@ -100,7 +100,8 @@ const initialState = {
   selectedArray: [],
   classifiedProduct: [],
   image: "",
-  classifiedSelected: []
+  classifiedSelected: [],
+  activeClass: []
 };
 
 // Reducer
@@ -545,7 +546,6 @@ function applyClassfySelected(state, action) {
 
 function applySetActiveClass(state, action) {
   const { classifiedSelected } = state;
-  console.log("setActiveClass");
   return {
     ...state,
     activeClass: classifiedSelected.filter(function(el) {
@@ -1085,7 +1085,8 @@ function applyResetSelectedProduct(state) {
     ...state,
     selectedProduct: [],
     selectedArray: [],
-    classifiedSelected: []
+    classifiedSelected: [],
+    activeClass: []
   };
 }
 

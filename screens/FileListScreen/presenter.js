@@ -1,29 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  Image
-} from "react-native";
-import FadeIn from "react-native-fade-in-image";
-import { Divider } from "react-native-elements";
-import { PURPLE } from "../../constants";
+import { View, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
 import FileItem from "../../components/FileItem";
-
-const { width, height } = Dimensions.get("window");
 
 const FileListScreen = props => {
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>
-            {props.casefiles[0].case.trademark_title} 사건 관련 파일
-          </Text>
+          <Text style={styles.title}>{props.case_title} 사건 관련 파일</Text>
         </View>
         {props.casefiles &&
           props.casefiles.map((files, index) => (

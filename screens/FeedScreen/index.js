@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Container from "./container";
 import { actionCreators as userActions } from "../../redux/modules/user";
 import { actionCreators as caseActions } from "../../redux/modules/cases";
+import { actionCreators as productActions } from "../../redux/modules/product";
 
 const mapStateToProps = (state, ownProps) => {
   const {
@@ -22,6 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     resetCase: () => {
       dispatch(caseActions.resetCase());
+      dispatch(productActions.resetSelectedProduct());
     }
   };
 };

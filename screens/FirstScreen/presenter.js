@@ -49,7 +49,7 @@ class FirstScreen extends Component {
                   <Ionicons name={"md-text"} size={25} color={"grey"} />
                   <View style={{ paddingLeft: 20 }}>
                     <TextInput
-                      placeholder="상표명을 입력해 주세요."
+                      placeholder="상표명을 입력해 주세요. 예) 스타벅스, adidas"
                       style={styles.textInput}
                       autoCapitalize={"none"}
                       autoCorrect={false}
@@ -291,6 +291,43 @@ class FirstScreen extends Component {
                   value={this.state.descriptions}
                 />
               </View>
+              <View
+                style={{
+                  alignItems: "flex-end",
+                  width
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    paddingVertical: 9,
+                    borderRadius: 3,
+                    backgroundColor: PURPLE,
+                    paddingHorizontal: 15,
+                    marginRight: 15,
+                    marginVertical: 15
+                  }}
+                  onPressOut={() => {
+                    if (!this.props.products) {
+                      alert("지정상품을 지정해 주세요!");
+                    } else if (
+                      navigation.state.params ||
+                      this.props.trademark_title
+                    ) {
+                      navigation.navigate("Third", {
+                        url: navigation.state.params.url
+                      });
+                    } else {
+                      alert("상표명을 입력하거나 이미지를 올려주세요");
+                    }
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 17, fontWeight: "600", color: "white" }}
+                  >
+                    다음
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </View>
@@ -304,29 +341,14 @@ class FirstScreen extends Component {
             paddingHorizontal: 10
           }}
         >
-          <Text>예상 가격</Text>
-          <TouchableOpacity
-            onPressOut={() => {
-              if (!this.props.products) {
-                alert("지정상품을 지정해 주세요!");
-              } else if (
-                navigation.state.params ||
-                this.props.trademark_title
-              ) {
-                navigation.navigate("Third");
-              } else {
-                alert("상표명을 입력하거나 이미지를 올려주세요");
-              }
-            }}
-          >
-            {this.props.isProductsSelected ? (
-              <Text style={styles.price}>
-                {this.props.changeFormat(this.props.totalPrice)} 원
-              </Text>
-            ) : (
-              <Text style={styles.price}>0 원</Text>
-            )}
-          </TouchableOpacity>
+          <Text style={styles.price}>총 결제 금액</Text>
+          {this.props.isProductsSelected ? (
+            <Text style={styles.price}>
+              {this.props.changeFormat(this.props.totalPrice)} 원
+            </Text>
+          ) : (
+            <Text style={styles.price}>0 원</Text>
+          )}
         </View>
 
         <ActionSheet
@@ -395,7 +417,7 @@ const styles = StyleSheet.create({
     height: 35,
     borderColor: "#bbb",
     borderWidth: StyleSheet.hairlineWidth,
-    width: width * 0.7,
+    width: width * 0.8,
     borderRadius: 2,
     backgroundColor: "white",
     fontSize: 15,
@@ -409,7 +431,7 @@ const styles = StyleSheet.create({
     marginVertical: 3
   },
   textInputDescription: {
-    height: 100,
+    height: 60,
     borderColor: "#bbb",
     borderWidth: StyleSheet.hairlineWidth,
     width: width * 0.9,

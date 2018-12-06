@@ -22,9 +22,21 @@ const CaseDetailScreen = props => {
       <ScrollView>
         <View style={styles.top}>
           <View style={styles.topLeft}>
-            <FadeIn>
-              <Image source={{ uri: props.cases.file }} style={styles.image} />
-            </FadeIn>
+            {props.cases.file ? (
+              <FadeIn>
+                <Image
+                  source={{ uri: props.cases.file }}
+                  style={styles.image}
+                />
+              </FadeIn>
+            ) : (
+              <FadeIn>
+                <Image
+                  source={require("../../assets/images/photoPlaceholder.png")}
+                  style={styles.image}
+                />
+              </FadeIn>
+            )}
           </View>
           <View style={styles.topRight}>
             <View>
@@ -88,7 +100,10 @@ const CaseDetailScreen = props => {
           <TouchableOpacity
             style={styles.button}
             onPressOut={() => {
-              props.navigation.navigate("FileList", { cases: props.cases });
+              props.navigation.navigate("FileList", {
+                cases: props.cases,
+                case_title: props.cases.trademark_title
+              });
             }}
           >
             <Text style={styles.text}>관련 </Text>
